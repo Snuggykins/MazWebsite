@@ -1,0 +1,13 @@
+# Stack specifics
+• Framework: Next.js 15, App Router.
+• Components live in /src/components; pages in /app.
+• Use @/ alias for imports.
+
+# CSS
+• Prefer Tailwind utility classes; keep global CSS minimal.
+
+# Accessibility
+• All interactive elements must include focus styles and aria-labels.
+
+# Commit policy
+• Use Conventional Commits (feat, fix, chore, docs, etc.).
