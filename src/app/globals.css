@@ -3,15 +3,15 @@
 /* Define color palette as CSS variables */
 :root {
   /* Base colors */
-/* Base colors (Dark Theme) */
---color-background: #1F1F1C;
---color-copy: #F9FAFB;       /* Light text for contrast */
---color-line: #3A3A36;       /* Subtle line color */
---color-card: #2A2A26;       /* Slightly lighter than background */
+  /* Base colors (Dark Theme) */
+  --color-background: #1F1F1C;
+  --color-copy: #F9FAFB;       /* Light text for contrast */
+  --color-line: #3A3A36;       /* Subtle line color */
+  --color-card: #2A2A26;       /* Slightly lighter than background */
 
-/* Accent colors (Dark Theme Adapted) */
---color-cars: #3B82F6;       /* Lighter blue for better contrast */
---color-decor: #FFD700;      /* Brighter gold to pop on dark background */
+  /* Accent colors (Dark Theme Adapted) */
+  --color-cars: #3B82F6;       /* Lighter blue for better contrast */
+  --color-decor: #FFD700;      /* Brighter gold to pop on dark background */
   
   /* State colors (using standard colors) */
   --color-success: #10B981; /* green-500 */

@@ -4,11 +4,14 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { StickySwitch } from './StickySwitch';
+import { LanguageSwitch } from './LanguageSwitch';
 import { useMode } from "@/hooks/useMode";
+import { useLanguage } from "@/hooks/useLanguage";
 import { motion, AnimatePresence } from "framer-motion";
 
 export const Navbar = () => {
   const { mode } = useMode();
+  const { language } = useLanguage();
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -31,10 +34,22 @@ export const Navbar = () => {
   }, []);
   
   const navItems = [
-    { name: 'About', href: '/about' },
-    { name: 'Services', href: '/services' },
-    { name: 'Gallery', href: '/gallery' },
-    { name: 'Contact', href: '/contact' },
+    { 
+      name: language === 'en' ? 'About' : 'Despre',
+      href: '/about' 
+    },
+    { 
+      name: language === 'en' ? 'Services' : 'Servicii',
+      href: '/services' 
+    },
+    { 
+      name: language === 'en' ? 'Gallery' : 'Galerie',
+      href: '/gallery' 
+    },
+    { 
+      name: language === 'en' ? 'Contact' : 'Contact',
+      href: '/contact' 
+    },
   ];
 
   const accentColorClass = mode === "cars" ? "text-cars" : "text-decor";
@@ -77,11 +92,16 @@ export const Navbar = () => {
           </ul>
         </nav>
         
-        {/* Mode switch and mobile menu button */}
-        <div className="flex items-center space-x-4 z-20">
+        {/* Mode switch, language switch, and mobile menu button */}
+        <div className="flex items-center space-x-2 z-20">
           {/* Mode Switch - Desktop only */}
           <div className="hidden md:block">
             <StickySwitch />
+          </div>
+          
+          {/* Language Switch - Desktop only */}
+          <div className="hidden md:block ml-2">
+            <LanguageSwitch />
           </div>
           
           {/* Mobile menu button */}
@@ -142,8 +162,9 @@ export const Navbar = () => {
                 </nav>
                 
                 {/* Mobile Mode Switch */}
-                <div className="pt-8 pb-4">
+                <div className="pt-8 pb-4 space-y-3">
                   <StickySwitch />
+                  <LanguageSwitch />
                 </div>
               </div>
             </div>

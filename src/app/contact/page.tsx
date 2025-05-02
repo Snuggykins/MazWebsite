@@ -3,11 +3,69 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useMode } from "@/hooks/useMode";
+import { useLanguage } from "@/hooks/useLanguage";
 
 export default function Contact() {
   const { mode } = useMode();
+  const { language } = useLanguage();
   const accentColorClass = mode === "cars" ? "text-cars" : "text-decor";
   const accentBgClass = mode === "cars" ? "bg-cars" : "bg-decor";
+  
+  // Translations
+  const texts = {
+    en: {
+      contact: "Contact Us",
+      carsMessage: "Ready to start your custom automotive project? Get in touch with our team of specialists.",
+      decorMessage: "Have a space you'd like to transform? Reach out to discuss your interior design vision.",
+      sendMessage: "Message Us",
+      thankYou: "Thank you!",
+      confirmation: "Your message has been received. We'll get back to you shortly.",
+      name: "Name",
+      email: "Email",
+      message: "Message",
+      sendButton: "Send Message",
+      information: "Contact Information",
+      location: "Location",
+      address1: "123 Design Avenue",
+      address2: "Suite 456",
+      address3: "New York, NY 10001",
+      contactHeading: "Contact",
+      phone: "Phone: (212) 555-1234",
+      emailLabel: `Email: info@maz${mode === "cars" ? "customs" : "decor"}.com`,
+      hours: "Hours",
+      monFri: "Monday - Friday: 9:00 AM - 6:00 PM",
+      saturday: "Saturday: 10:00 AM - 4:00 PM",
+      sunday: "Sunday: Closed",
+      available: "Our team is available to discuss your project, answer questions, or schedule a consultation. We'll respond within 24 hours."
+    },
+    ro: {
+      contact: "Contactați-ne",
+      carsMessage: "Sunteți gata să începeți proiectul dumneavoastră auto personalizat? Luați legătura cu echipa noastră de specialiști.",
+      decorMessage: "Aveți un spațiu pe care doriți să-l transformați? Contactați-ne pentru a discuta despre viziunea dumneavoastră de design interior.",
+      sendMessage: "Trimiteți-ne Mesaj",
+      thankYou: "Vă mulțumim!",
+      confirmation: "Mesajul dumneavoastră a fost primit. Vă vom contacta în curând.",
+      name: "Nume",
+      email: "Email",
+      message: "Mesaj",
+      sendButton: "Trimite Mesajul",
+      information: "Informații Contact",
+      location: "Locație",
+      address1: "Strada Design 123",
+      address2: "Suita 456",
+      address3: "New York, NY 10001",
+      contactHeading: "Contact",
+      phone: "Telefon: (212) 555-1234",
+      emailLabel: `Email: info@maz${mode === "cars" ? "customs" : "decor"}.com`,
+      hours: "Program",
+      monFri: "Luni - Vineri: 9:00 - 18:00",
+      saturday: "Sâmbătă: 10:00 - 16:00",
+      sunday: "Duminică: Închis",
+      available: "Echipa noastră este disponibilă pentru a discuta despre proiectul dumneavoastră, a răspunde la întrebări sau a programa o consultație. Vom răspunde în termen de 24 de ore."
+    }
+  };
+  
+  const t = texts[language];
   
   // Form placeholder (not functional yet)
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -32,13 +90,11 @@ export default function Contact() {
             className="text-center mb-24"
           >
             <h1 className="text-5xl font-heading font-bold mb-8 text-white">
-              Contact <span className={accentColorClass}>Us</span>
+              {t.contact.split(' ')[0]} <span className={accentColorClass}>{t.contact.split(' ')[1]}</span>
             </h1>
             
             <p className="text-xl font-body text-white/80 max-w-3xl mx-auto">
-              {mode === "cars" 
-                ? "Ready to start your custom automotive project? Get in touch with our team of specialists." 
-                : "Have a space you'd like to transform? Reach out to discuss your interior design vision."}
+              {mode === "cars" ? t.carsMessage : t.decorMessage}
             </p>
           </motion.div>
         </div>
@@ -55,7 +111,7 @@ export default function Contact() {
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <h2 className="text-3xl font-heading font-semibold mb-8 text-white">
-                Send a <span className={accentColorClass}>Message</span>
+                {t.sendMessage.split(' ')[0]} <span className={accentColorClass}>{t.sendMessage.split(' ')[1]}</span>
               </h2>
               
               {formSubmitted ? (
@@ -64,16 +120,16 @@ export default function Contact() {
                   animate={{ opacity: 1 }}
                   className="bg-card/5 p-8 rounded-sm text-center"
                 >
-                  <p className="text-white text-xl mb-4">Thank you!</p>
+                  <p className="text-white text-xl mb-4">{t.thankYou}</p>
                   <p className="text-white/80">
-                    Your message has been received. We&apos;ll get back to you shortly.
+                    {t.confirmation}
                   </p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-white mb-2">
-                      Name
+                      {t.name}
                     </label>
                     <input
                       type="text"
@@ -85,7 +141,7 @@ export default function Contact() {
                   
                   <div>
                     <label htmlFor="email" className="block text-white mb-2">
-                      Email
+                      {t.email}
                     </label>
                     <input
                       type="email"
@@ -97,7 +153,7 @@ export default function Contact() {
                   
                   <div>
                     <label htmlFor="message" className="block text-white mb-2">
-                      Message
+                      {t.message}
                     </label>
                     <textarea
                       id="message"
@@ -113,7 +169,7 @@ export default function Contact() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Send Message
+                    {t.sendButton}
                   </motion.button>
                 </form>
               )}
@@ -126,39 +182,38 @@ export default function Contact() {
               transition={{ duration: 0.6, delay: 0.4 }}
             >
               <h2 className="text-3xl font-heading font-semibold mb-8 text-white">
-                Contact <span className={accentColorClass}>Information</span>
+                {t.information.split(' ')[0]} <span className={accentColorClass}>{t.information.split(' ')[1]}</span>
               </h2>
               
               <div className="bg-card/5 p-8 rounded-sm space-y-8 mb-8">
                 <div>
-                  <h3 className="text-xl font-heading font-semibold mb-2 text-white">Location</h3>
+                  <h3 className="text-xl font-heading font-semibold mb-2 text-white">{t.location}</h3>
                   <p className="text-white/80">
-                    123 Design Avenue<br />
-                    Suite 456<br />
-                    New York, NY 10001
+                    {t.address1}<br />
+                    {t.address2}<br />
+                    {t.address3}
                   </p>
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-heading font-semibold mb-2 text-white">Contact</h3>
+                  <h3 className="text-xl font-heading font-semibold mb-2 text-white">{t.contactHeading}</h3>
                   <p className="text-white/80">
-                    Phone: (212) 555-1234<br />
-                    Email: info@maz{mode === "cars" ? "customs" : "decor"}.com
+                    {t.phone}<br />
+                    {t.emailLabel}
                   </p>
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-heading font-semibold mb-2 text-white">Hours</h3>
+                  <h3 className="text-xl font-heading font-semibold mb-2 text-white">{t.hours}</h3>
                   <p className="text-white/80">
-                    Monday - Friday: 9:00 AM - 6:00 PM<br />
-                    Saturday: 10:00 AM - 4:00 PM<br />
-                    Sunday: Closed
+                    {t.monFri}<br />
+                    {t.saturday}<br />
+                    {t.sunday}
                   </p>
                 </div>
                 
                 <p className="text-white/80 mb-6">
-                  Our team is available to discuss your project, answer questions, or 
-                  schedule a consultation. We&apos;ll respond within 24 hours.
+                  {t.available}
                 </p>
               </div>
             </motion.div>
